@@ -1,0 +1,87 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2); 
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(14,INPUT_PULLUP);
+  pinMode(15,INPUT_PULLUP);
+  pinMode(16,INPUT_PULLUP);
+  
+  pinMode(11,OUTPUT);
+  lcd.begin(16,2);  
+  delay(500);
+  lcd.setCursor(0, 0);
+  lcd.print("Undrground Cable");
+  lcd.setCursor(0, 1);
+  lcd.print("Fault Detector");
+  delay(3000);
+  lcd.clear();
+}
+
+void loop()
+{
+ 
+  
+if((digitalRead(14)==HIGH) && (digitalRead(15)==HIGH) && (digitalRead(16)==HIGH))
+{
+   digitalWrite(11, HIGH);
+   lcd.setCursor(0, 1);
+  lcd.print("Fault at 2,4,6kms");
+   delay(10);
+}
+else if((digitalRead(14)==HIGH) && (digitalRead(15)==HIGH))
+{
+   digitalWrite(11, HIGH);
+   lcd.setCursor(0, 1);
+  lcd.print("Fault at 4,6kms");
+   delay(10);
+}
+else if((digitalRead(15)==HIGH) && (digitalRead(16)==HIGH))
+{
+   digitalWrite(11, HIGH);
+   lcd.setCursor(0, 1);
+  lcd.print("Fault at 2,4kms");
+   delay(10);
+}
+else if((digitalRead(16)==HIGH) && (digitalRead(14)==HIGH))
+{
+   digitalWrite(11, HIGH);
+   lcd.setCursor(0, 1);
+  lcd.print("Fault at 2,6kms");
+   delay(10);
+}
+else if(digitalRead(14)==HIGH)
+{
+   digitalWrite(11, HIGH);
+   lcd.setCursor(0, 1);
+  lcd.print("Fault at 6 Km...        ");
+   delay(10);
+}
+else if(digitalRead(15)==HIGH)
+{
+  
+   digitalWrite(11, HIGH);
+   lcd.setCursor(0, 1);
+  lcd.print("Fault at 4 Km...        ");
+   delay(10);
+   
+}
+else if(digitalRead(16)==HIGH)
+{
+  
+   digitalWrite(11, HIGH);
+   lcd.setCursor(0, 1);
+  lcd.print("Fault at 2 Km...        ");
+   delay(10);
+   
+}
+else
+{
+   digitalWrite(11, LOW);
+   lcd.setCursor(0, 1);
+  lcd.print("No Faults            ");
+   delay(10);
+   
+}
+}
